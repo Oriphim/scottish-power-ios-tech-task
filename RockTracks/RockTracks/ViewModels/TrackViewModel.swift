@@ -38,11 +38,27 @@ class TrackViewModel: ObservableObject {
                 let decoder = JSONDecoder()
                 do {
                     let searchResult = try decoder.decode(SearchResult.self, from: data)
-                    self.tracks = searchResult.results
+                    self.tracks = self.sortTracksByReleaseDate(searchResult.results)
                 } catch {
                     self.errorMessage = "Error decoding JSON: \(error.localizedDescription)"
                 }
             }
         }.resume()
+    }
+    
+    private func sortTracksByReleaseDate(_ tracks: [Track]) -> [Track] {
+        return tracks.sorted { track1, track2 in
+            guard let date1 = track1.releaseDate?.toDate(), let date2 = track2.releaseDate?.toDate() else {
+                return false
+            }
+            return date1 > date2
+        }
+    }
+}
+
+extension String {
+    func toDate() -> Date? {
+        let formatter = ISO8601DateFormatter()
+        return formatter.date(from: self)
     }
 }

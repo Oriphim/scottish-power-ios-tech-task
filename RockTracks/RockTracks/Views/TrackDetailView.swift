@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TrackDetailView: View {
     @StateObject var viewModel: TrackDetailViewModel
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             if let artworkUrl = viewModel.artworkUrl {
@@ -21,9 +21,11 @@ struct TrackDetailView: View {
                         .foregroundColor(.gray)
                 }
                 .frame(width: 100, height: 100)
-                .cornerRadius(8)
+                .cornerRadius(16)
+                .padding()
+                .frame(maxWidth: .infinity)
             }
-
+            
             Text(viewModel.trackName)
                 .font(.title)
                 .fontWeight(.bold)
@@ -61,7 +63,6 @@ struct TrackDetailView: View {
             }
         }
         .padding()
-        .navigationTitle("Track Details")
     }
 }
 
