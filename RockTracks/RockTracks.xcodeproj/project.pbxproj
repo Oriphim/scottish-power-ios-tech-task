@@ -14,6 +14,8 @@
 		9C1D6E022C08CC2F004848D2 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E012C08CC2F004848D2 /* Track.swift */; };
 		9C1D6E052C08CC54004848D2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E042C08CC54004848D2 /* NetworkService.swift */; };
 		9C1D6E082C08CDA6004848D2 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E072C08CDA6004848D2 /* TrackViewModel.swift */; };
+		9C1D6E0D2C08EB8C004848D2 /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E0C2C08EB8C004848D2 /* TrackDetailView.swift */; };
+		9C1D6E0F2C08EC61004848D2 /* TrackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E0E2C08EC61004848D2 /* TrackDetailViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		9C1D6E012C08CC2F004848D2 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		9C1D6E042C08CC54004848D2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		9C1D6E072C08CDA6004848D2 /* TrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModel.swift; sourceTree = "<group>"; };
+		9C1D6E0C2C08EB8C004848D2 /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
+		9C1D6E0E2C08EC61004848D2 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				9C1D6E072C08CDA6004848D2 /* TrackViewModel.swift */,
+				9C1D6E0E2C08EC61004848D2 /* TrackDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				9C1D6DF42C08CBF6004848D2 /* ContentView.swift */,
+				9C1D6E0C2C08EB8C004848D2 /* TrackDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -181,6 +187,8 @@
 				9C1D6DF52C08CBF6004848D2 /* ContentView.swift in Sources */,
 				9C1D6E082C08CDA6004848D2 /* TrackViewModel.swift in Sources */,
 				9C1D6DF32C08CBF6004848D2 /* RockTracksApp.swift in Sources */,
+				9C1D6E0D2C08EB8C004848D2 /* TrackDetailView.swift in Sources */,
+				9C1D6E0F2C08EC61004848D2 /* TrackDetailViewModel.swift in Sources */,
 				9C1D6E052C08CC54004848D2 /* NetworkService.swift in Sources */,
 				9C1D6E022C08CC2F004848D2 /* Track.swift in Sources */,
 			);

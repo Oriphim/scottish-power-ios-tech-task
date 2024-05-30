@@ -23,7 +23,9 @@ struct ContentView: View {
                         .padding()
                 } else {
                     List(viewModel.tracks) { track in
-                        TrackRow(track: track)
+                        NavigationLink(destination: TrackDetailView(viewModel: TrackDetailViewModel(track: track))) {
+                            TrackRow(track: track)
+                        }
                     }
                 }
             }

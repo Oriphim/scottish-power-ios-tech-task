@@ -16,6 +16,9 @@ struct Track: Codable, Identifiable {
     let artistName: String
     let trackPrice: Double?
     let artworkUrl100: URL?
+    let trackTimeMillis: Int?
+    let releaseDate: String?
+    let trackViewUrl: URL?
 }
 
 struct SearchResult: Codable {
