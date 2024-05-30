@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  TrackViewModel.swift
 //  RockTracks
 //
 //  Created by Henry Tsang on 30/05/2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NetworkService: ObservableObject {
+class TrackViewModel: ObservableObject {
     @Published var tracks = [Track]()
 
     func fetchTracks() {

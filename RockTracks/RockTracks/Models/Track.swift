@@ -6,15 +6,18 @@
 //
 
 import Foundation
-    
+
 struct Track: Codable, Identifiable {
-    var id: String {
+    var id: Int {
         return trackId
     }
-    let trackId: String
+    let trackId: Int
     let trackName: String
     let artistName: String
     let trackPrice: Double?
-    let artworkUrl100: String?
+    let artworkUrl100: URL?
 }
 
+struct SearchResult: Codable {
+    let results: [Track]
+}
