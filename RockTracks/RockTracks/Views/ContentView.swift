@@ -9,23 +9,35 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = TrackViewModel()
-
+    
     var body: some View {
         NavigationView {
-            List(viewModel.tracks) { track in
-                TrackRow(track: track)
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading tracks...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding()
+                } else if let errorMessage = viewModel.errorMessage {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .padding()
+                } else {
+                    List(viewModel.tracks) { track in
+                        TrackRow(track: track)
+                    }
+                }
             }
             .navigationTitle("Rock Tracks")
-        }
-        .onAppear {
-            viewModel.fetchTracks()
+            .onAppear {
+                viewModel.fetchTracks()
+            }
         }
     }
 }
 
 struct TrackRow: View {
     let track: Track
-
+    
     var body: some View {
         HStack {
             if let artworkUrl = track.artworkUrl100 {

@@ -9,7 +9,7 @@ import Foundation
 
 class NetworkService: ObservableObject {
     @Published var tracks = [Track]()
-
+    
     func fetchTracks() {
         guard let url = URL(string: "https://itunes.apple.com/search?term=rock&entity=song") else { return }
         
