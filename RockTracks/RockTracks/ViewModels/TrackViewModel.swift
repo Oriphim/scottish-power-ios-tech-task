@@ -12,38 +12,26 @@ class TrackViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
+    private let networkService = NetworkService()
+    
     func fetchTracks() {
         isLoading = true
         errorMessage = nil
         
-        guard let url = URL(string: "https://itunes.apple.com/search?term=rock&entity=song") else {
-            self.isLoading = false
-            self.errorMessage = "Invalid URL"
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                if let error = error {
+        Task {
+            do {
+                let fetchedTracks = try await networkService.fetchTracks()
+                DispatchQueue.main.async {
+                    self.tracks = self.sortTracksByReleaseDate(fetchedTracks)
+                    self.isLoading = false
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.isLoading = false
                     self.errorMessage = "Failed to fetch tracks: \(error.localizedDescription)"
-                    return
-                }
-                
-                guard let data = data else {
-                    self.errorMessage = "No data received"
-                    return
-                }
-                
-                let decoder = JSONDecoder()
-                do {
-                    let searchResult = try decoder.decode(SearchResult.self, from: data)
-                    self.tracks = self.sortTracksByReleaseDate(searchResult.results)
-                } catch {
-                    self.errorMessage = "Error decoding JSON: \(error.localizedDescription)"
                 }
             }
-        }.resume()
+        }
     }
     
     func sortTracksByReleaseDate(_ tracks: [Track]) -> [Track] {

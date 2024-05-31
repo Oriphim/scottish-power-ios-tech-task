@@ -7,24 +7,12 @@
 
 import Foundation
 
-class NetworkService: ObservableObject {
-    @Published var tracks = [Track]()
-    
-    func fetchTracks() {
-        guard let url = URL(string: "https://itunes.apple.com/search?term=rock&entity=song") else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data {
-                let decoder = JSONDecoder()
-                do {
-                    let searchResult = try decoder.decode(SearchResult.self, from: data)
-                    DispatchQueue.main.async {
-                        self.tracks = searchResult.results
-                    }
-                } catch {
-                    print("Error decoding JSON: \(error)")
-                }
-            }
-        }.resume()
+class NetworkService {
+    func fetchTracks() async throws -> [Track] {
+        let url = URL(string: "https://itunes.apple.com/search?term=rock&entity=song")!
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decoder = JSONDecoder()
+        let searchResult = try decoder.decode(SearchResult.self, from: data)
+        return searchResult.results
     }
 }
