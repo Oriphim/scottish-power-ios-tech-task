@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class TrackViewModel: ObservableObject {
     @Published var tracks = [Track]()
     @Published var isLoading = false
@@ -18,23 +19,17 @@ class TrackViewModel: ObservableObject {
         self.networkService = networkService
     }
     
-    func fetchTracks() {
+    func fetchTracks() async {
         isLoading = true
         errorMessage = nil
         
-        Task {
-            do {
-                let fetchedTracks = try await networkService.fetchTracks()
-                DispatchQueue.main.async {
-                    self.tracks = self.sortTracksByReleaseDate(fetchedTracks)
-                    self.isLoading = false
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    self.isLoading = false
-                    self.errorMessage = "Failed to fetch tracks: \(error.localizedDescription)"
-                }
-            }
+        do {
+            let fetchedTracks = try await networkService.fetchTracks()
+            self.tracks = self.sortTracksByReleaseDate(fetchedTracks)
+            self.isLoading = false
+        } catch {
+            self.isLoading = false
+            self.errorMessage = "Failed to fetch tracks: \(error.localizedDescription)"
         }
     }
     

@@ -31,7 +31,9 @@ struct ContentView: View {
             }
             .navigationTitle("Rock Tracks")
             .onAppear {
-                viewModel.fetchTracks()
+                Task {
+                    await viewModel.fetchTracks()
+                }
             }
         }
     }
