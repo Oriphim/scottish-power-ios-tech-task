@@ -38,7 +38,7 @@ class TrackViewModel: ObservableObject {
         }
     }
     
-    private func sortTracksByReleaseDate(_ tracks: [Track]) -> [Track] {
+    func sortTracksByReleaseDate(_ tracks: [Track]) -> [Track] {
         return tracks.sorted { track1, track2 in
             guard let date1 = track1.releaseDate?.toDate(), let date2 = track2.releaseDate?.toDate() else {
                 return false

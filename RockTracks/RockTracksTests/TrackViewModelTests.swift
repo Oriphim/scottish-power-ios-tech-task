@@ -11,50 +11,53 @@ import XCTest
 class TrackViewModelTests: XCTestCase {
     
     var viewModel: TrackViewModel!
-    
+    var mockService: NetworkServiceMock!
+    var mockTracks: [Track]!
+
     override func setUpWithError() throws {
-        viewModel = TrackViewModel()
+        mockTracks = [
+            Track(trackId: 1, trackName: "Test Track 1", artistName: "Test Artist 1", trackPrice: 1.99, artworkUrl100: nil, trackTimeMillis: 133337, releaseDate: "2023-01-01T00:00:00Z", trackViewUrl: nil),
+            Track(trackId: 2, trackName: "Test Track 2", artistName: "Test Artist 2", trackPrice: 2.99, artworkUrl100: nil, trackTimeMillis: 123456, releaseDate: "2022-01-01T00:00:00Z", trackViewUrl: nil)
+        ]
+        mockService = NetworkServiceMock(mockTracks: mockTracks)
+        viewModel = TrackViewModel(networkService: mockService)
     }
 
     override func tearDownWithError() throws {
         viewModel = nil
+        mockService = nil
+        mockTracks = nil
     }
     
-    func testFetchTracks() throws {
-        let expectation = self.expectation(description: "Fetching tracks")
+    func testFetchTracksSuccess() async throws {
+        mockService.shouldReturnError = false
         
-        viewModel.fetchTracks()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 10, handler: nil)
+        await viewModel.fetchTracks()
         
         XCTAssertFalse(viewModel.tracks.isEmpty, "Tracks should not be empty")
         XCTAssertNil(viewModel.errorMessage, "Error message should be nil")
+        XCTAssertEqual(viewModel.tracks.count, mockTracks.count, "There should be \(mockTracks.count) tracks")
+    }
+    
+    func testFetchTracksFailure() async throws {
+        mockService.shouldReturnError = true
+        
+        await viewModel.fetchTracks()
+        
+        XCTAssertTrue(viewModel.tracks.isEmpty, "Tracks should be empty")
+        XCTAssertNotNil(viewModel.errorMessage, "Error message should not be nil")
     }
     
     func testSortTracksByReleaseDate() throws {
-        let track1 = Track(trackId: 1, trackName: "Track 1", artistName: "Artist 1", trackPrice: 1.99, artworkUrl100: nil, trackTimeMillis: 300000, releaseDate: "2022-01-01T00:00:00Z", trackViewUrl: nil)
-        let track2 = Track(trackId: 2, trackName: "Track 2", artistName: "Artist 2", trackPrice: 1.99, artworkUrl100: nil, trackTimeMillis: 300000, releaseDate: "2023-01-01T00:00:00Z", trackViewUrl: nil)
-        let track3 = Track(trackId: 3, trackName: "Track 3", artistName: "Artist 3", trackPrice: 1.99, artworkUrl100: nil, trackTimeMillis: 300000, releaseDate: "2021-01-01T00:00:00Z", trackViewUrl: nil)
+        let unsortedTracks = [
+            Track(trackId: 1, trackName: "Test Track 1", artistName: "Test Artist 1", trackPrice: 1.99, artworkUrl100: nil, trackTimeMillis: 133337, releaseDate: "2022-01-01T00:00:00Z", trackViewUrl: nil),
+            Track(trackId: 2, trackName: "Test Track 2", artistName: "Test Artist 2", trackPrice: 2.99, artworkUrl100: nil, trackTimeMillis: 123456, releaseDate: "2023-01-01T00:00:00Z", trackViewUrl: nil),
+            Track(trackId: 3, trackName: "Test Track 3", artistName: "Test Artist 3", trackPrice: 3.99, artworkUrl100: nil, trackTimeMillis: 300000, releaseDate: "2021-01-01T00:00:00Z", trackViewUrl: nil)
+        ]
         
-        let sortedTracks = viewModel.sortTracksByReleaseDate([track1, track2, track3])
+        let sortedTracks = viewModel.sortTracksByReleaseDate(unsortedTracks)
         
-        XCTAssertEqual(sortedTracks.first?.trackId, track2.trackId, "The first track should be the one with the latest release date")
-        XCTAssertEqual(sortedTracks.last?.trackId, track3.trackId, "The last track should be the one with the earliest release date")
-    }
-}
-
-extension TrackViewModel {
-    func formatReleaseDate(_ releaseDate: String) -> String {
-        let formatter = ISO8601DateFormatter()
-        if let date = formatter.date(from: releaseDate) {
-            let displayFormatter = DateFormatter()
-            displayFormatter.dateStyle = .medium
-            return displayFormatter.string(from: date)
-        }
-        return releaseDate
+        XCTAssertEqual(sortedTracks.first?.trackId, unsortedTracks[1].trackId, "The first track should be the one with the latest release date")
+        XCTAssertEqual(sortedTracks.last?.trackId, unsortedTracks[2].trackId, "The last track should be the one with the earliest release date")
     }
 }
