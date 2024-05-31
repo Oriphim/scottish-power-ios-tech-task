@@ -7,7 +7,11 @@
 
 import Foundation
 
-class NetworkService {
+protocol NetworkServiceProtocol {
+    func fetchTracks() async  throws -> [Track] 
+}
+
+class NetworkService: NetworkServiceProtocol {
     func fetchTracks() async throws -> [Track] {
         let url = URL(string: "https://itunes.apple.com/search?term=rock&entity=song")!
         let (data, _) = try await URLSession.shared.data(from: url)

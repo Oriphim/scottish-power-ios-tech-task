@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = TrackViewModel()
+    @StateObject private var viewModel = TrackViewModel(networkService: NetworkService())
     
     var body: some View {
         NavigationView {

@@ -12,7 +12,11 @@ class TrackViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let networkService = NetworkService()
+    private let networkService: NetworkServiceProtocol
+    
+    init(networkService: NetworkServiceProtocol) {
+        self.networkService = networkService
+    }
     
     func fetchTracks() {
         isLoading = true
@@ -34,7 +38,7 @@ class TrackViewModel: ObservableObject {
         }
     }
     
-    func sortTracksByReleaseDate(_ tracks: [Track]) -> [Track] {
+    private func sortTracksByReleaseDate(_ tracks: [Track]) -> [Track] {
         return tracks.sorted { track1, track2 in
             guard let date1 = track1.releaseDate?.toDate(), let date2 = track2.releaseDate?.toDate() else {
                 return false
