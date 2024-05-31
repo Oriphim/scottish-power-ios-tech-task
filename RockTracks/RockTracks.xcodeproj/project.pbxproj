@@ -17,6 +17,7 @@
 		9C1D6E0D2C08EB8C004848D2 /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E0C2C08EB8C004848D2 /* TrackDetailView.swift */; };
 		9C1D6E0F2C08EC61004848D2 /* TrackDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E0E2C08EC61004848D2 /* TrackDetailViewModel.swift */; };
 		9C1D6E172C08F8DA004848D2 /* TrackViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E162C08F8DA004848D2 /* TrackViewModelTests.swift */; };
+		9C1D6E212C09D2AC004848D2 /* NetworkServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C1D6E202C09D2AC004848D2 /* NetworkServiceMock.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		9C1D6E0E2C08EC61004848D2 /* TrackDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailViewModel.swift; sourceTree = "<group>"; };
 		9C1D6E142C08F8DA004848D2 /* RockTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RockTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C1D6E162C08F8DA004848D2 /* TrackViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModelTests.swift; sourceTree = "<group>"; };
+		9C1D6E202C09D2AC004848D2 /* NetworkServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceMock.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				9C1D6E002C08CC23004848D2 /* Models */,
 				9C1D6DF22C08CBF6004848D2 /* RockTracksApp.swift */,
 				9C1D6DF62C08CBF7004848D2 /* Assets.xcassets */,
+				9C1D6E1F2C09D292004848D2 /* Mocks */,
 				9C1D6DF82C08CBF7004848D2 /* Preview Content */,
 			);
 			path = RockTracks;
@@ -142,6 +145,14 @@
 				9C1D6E162C08F8DA004848D2 /* TrackViewModelTests.swift */,
 			);
 			path = RockTracksTests;
+			sourceTree = "<group>";
+		};
+		9C1D6E1F2C09D292004848D2 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				9C1D6E202C09D2AC004848D2 /* NetworkServiceMock.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C1D6E212C09D2AC004848D2 /* NetworkServiceMock.swift in Sources */,
 				9C1D6DF52C08CBF6004848D2 /* ContentView.swift in Sources */,
 				9C1D6E082C08CDA6004848D2 /* TrackViewModel.swift in Sources */,
 				9C1D6DF32C08CBF6004848D2 /* RockTracksApp.swift in Sources */,
